@@ -1,14 +1,16 @@
 #!/usr/bin/env bash
 
 i=0
-while [ $i -le 12 ];
-do
-	echo "Hour: $i"
-	min=1
-	while [ $min -le 59 ];
-	do
-		echo "$min"
-		((min++))
-	done
-	((i++))
-done
+
+while [ $i -le 12 ]; do
+    echo "Hour: $i"
+    
+    min=1
+    while [ $min -le 59 ]; do
+        printf "%02d\n" "$min"  # Format minutes with leading zero if needed
+        ((min++))
+    done
+    
+    ((i++))
+done | head -n 70
+
