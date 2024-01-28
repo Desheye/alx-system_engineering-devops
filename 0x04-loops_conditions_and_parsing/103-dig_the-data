@@ -1,4 +1,12 @@
 #!/usr/bin/env bash
-#groups visitors by IP and HTTP status code, and displays this data
 
-awk '{print $1 " " $9}' apache-access.log | sort | uniq -c | sort -rn
+# Groups visitors by IP and HTTP status code, and displays this data
+
+# Use cut to extract the IP address (first field) and status code (ninth field)
+cut -d ' ' -f 1,9 apache-access.log | \
+# Sort the data
+sort | \
+# Use uniq -c to count the occurrences of each unique line
+uniq -c | \
+# Sort again to display the results in descending order
+sort -rn
