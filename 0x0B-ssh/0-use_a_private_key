@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # SSH into the server using the specified private key and user
 # Single-character flags are used for SSH options
