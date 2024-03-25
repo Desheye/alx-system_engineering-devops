@@ -9,8 +9,5 @@
 # -o: Allows specifying additional options (not used in this script)
 # -p: Specifies the port to connect to (not required in this task)
 # -A: Enables authentication agent forwarding (not required in this task)
-# -T: Disables pseudo-terminal allocation (not required in this task)
-# -q: Quiet mode, disables printing of diagnostic messages
 
-ssh -i ~/.ssh/school -o User=ubuntu -q ubuntu@18.207.234.17
-
+ssh -i ~/.ssh/school ubuntu@34.239.207.96
