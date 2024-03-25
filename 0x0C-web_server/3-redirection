@@ -1,0 +1,31 @@
+#!/usr/bin/env bash 
+
+# Function to display usage
+display_usage() {
+    echo "Usage: $0 DESTINATION_URL"
+}
+
+# Check if number of arguments is less than 1
+if [ $# -lt 1 ]; then
+    display_usage
+    exit 1
+fi
+
+# Assigning destination URL to variable
+destination_url=$1
+
+# Define the redirection rule
+redirection_rule="location /redirect_me {
+    return 301 $destination_url;
+}"
+
+# Update Nginx configuration with the redirection rule
+sed -i "/server {/a $redirection_rule" /etc/nginx/sites-available/default
+
+# Restart Nginx to apply changes
+service nginx restart
+
+# Test the redirection
+echo "Testing the redirection:"
+curl -sI localhost/redirect_me
+
