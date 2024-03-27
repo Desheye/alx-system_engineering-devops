@@ -10,4 +10,4 @@
 # -p: Specifies the port to connect to (not required in this task)
 # -A: Enables authentication agent forwarding (not required in this task)
 
-ssh -i ~/.ssh/school ubuntu@34.239.207.96
+ssh -i ~/.ssh/school ubuntu@54.237.224.42
