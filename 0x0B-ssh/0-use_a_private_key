@@ -1,13 +1,4 @@
 #!/usr/bin/env bash
-
-# SSH into the server using the specified private key and user
-# Single-character flags are used for SSH options
-
-# Set SSH options:
-# -i: Specifies the identity file (private key)
-# -l: Specifies the login name (not allowed, so omitted)
-# -o: Allows specifying additional options (not used in this script)
-# -p: Specifies the port to connect to (not required in this task)
-# -A: Enables authentication agent forwarding (not required in this task)
+# Script is connecting to a remote server
 
 ssh -i ~/.ssh/school ubuntu@54.237.224.42
