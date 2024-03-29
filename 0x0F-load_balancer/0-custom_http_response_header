@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# This script configures Nginx to include a custom HTTP header containing the hostname of the server.
+
+# Install Nginx
+apt-get update
+apt-get install -y nginx
+
+# Configure Nginx to include custom HTTP header
+echo 'server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    add_header X-Served-By $HOSTNAME;
+    root /var/www/html;
+    index index.html index.htm;
+}' > /etc/nginx/sites-available/default
+
+# Restart Nginx to apply the changes
+service nginx restart
