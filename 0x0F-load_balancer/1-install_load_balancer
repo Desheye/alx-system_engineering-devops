@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+# Configure HAProxy to distribute traffic to web-01 and web-02 using round-robin algorithm
+# Ensure HAProxy can be managed via an init script
+# Ensure servers are configured with the correct hostnames: [STUDENT_ID]-web-01 and [STUDENT_ID]-web-02
+
+STUDENT_ID="148323"
+
+# Install HAProxy
+apt-get update
+apt-get install -y haproxy
+
+# Configure HAProxy
+echo "ENABLED=1" >> /etc/default/haproxy
+mv /etc/haproxy/haproxy.cfg{,.original}
+touch /etc/haproxy/haproxy.cfg
+
+# Write HAProxy configuration
+printf %s "global
+    log 127.0.0.1 local0 notice
+    maxconn 2000
+    user haproxy
+    group haproxy
+
+defaults
+    log     global
+    mode    http
+    option  httplog
+    option  dontlognull
+    retries 3
+    option redispatch
+    timeout connect  5000
+    timeout client  10000
+    timeout server  10000
+
+frontend http_front
+    bind *:80
+    default_backend http_back
+
+backend http_back
+    balance roundrobin
+    server web-01 ec2-54-237-224-42.compute-1.amazonaws.com:80 check
+    server web-02 ec2-3-80-18-166.compute-1.amazonaws.com:80 check
+" > /etc/haproxy/haproxy.cfg
+
+# Restart HAProxy service
+service haproxy restart
