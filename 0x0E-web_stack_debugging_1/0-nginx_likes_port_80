@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Check if Nginx is running
+if ps aux | grep -q "[n]ginx: master process"; then
+    echo "Nginx is already running. Stopping..."
+    sudo nginx -s stop
+fi
+
+# Check Nginx configuration for errors
+if ! sudo nginx -t; then
+    echo "Nginx configuration test failed. Please fix the configuration file."
+    exit 1
+fi
+
+# Check if any other service is listening on port 80
+other_service=$(sudo lsof -i :80 | awk 'NR==2{print $1}')
+if [ -n "$other_service" ]; then
+    echo "Another service ($other_service) is already listening on port 80. Exiting."
+    exit 1
+fi
+
+# Start Nginx
+echo "Starting Nginx..."
+sudo nginx
+
+echo "Nginx is now listening on port 80."
