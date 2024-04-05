@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# This script displays information about subdomains of a given domain
+
+# Function to display information about a subdomain
+display_info() {
+    local domain=$1
+    local subdomain=$2
+    local record=$(dig $subdomain.$domain | awk '/ANSWER SECTION/{getline; print $4}')
+    echo "The subdomain $subdomain is a $(dig $subdomain.$domain +short | awk '{print toupper($1)}') record and points to $record"
+}
+
+# Main script
+if [[ $# -eq 1 ]]; then
+    display_info $1 www
+    display_info $1 lb-01
+    display_info $1 web-01
+    display_info $1 web-02
+elif [[ $# -eq 2 ]]; then
+    display_info $1 $2
+else
+    echo "Usage: $0 <domain> [<subdomain>]"
+    exit 1
+fi
