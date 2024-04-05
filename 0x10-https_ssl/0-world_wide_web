@@ -21,3 +21,4 @@ else
     echo "Usage: $0 <domain> [<subdomain>]"
     exit 1
 fi
+
