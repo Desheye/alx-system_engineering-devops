@@ -12,10 +12,10 @@ apt-get install -y haproxy
 # Configure HAProxy
 echo "ENABLED=1" >> /etc/default/haproxy
 mv /etc/haproxy/haproxy.cfg{,.original}
-touch /etc/haproxy/haproxy.cfg
 
 # Write HAProxy configuration
-printf %s "global
+cat <<EOF > /etc/haproxy/haproxy.cfg
+global
     log 127.0.0.1 local0 notice
     maxconn 2000
     user haproxy
@@ -38,9 +38,9 @@ frontend http_front
 
 backend http_back
     balance roundrobin
-    server web-01 ec2-54-237-224-42.compute-1.amazonaws.com:80 check
-    server web-02 ec2-3-80-18-166.compute-1.amazonaws.com:80 check
-" > /etc/haproxy/haproxy.cfg
+    server 148323-web-01 148323-web-01:80 check
+    server 148323-web-02 148323-web-02:80 check
+EOF
 
 # Restart HAProxy service
 service haproxy restart
