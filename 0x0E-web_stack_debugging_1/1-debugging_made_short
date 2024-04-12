@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# Sets up the server to listen on port 80 for all active IPv4 addresses
 
-if ! systemctl is-active --quiet nginx; then
-    sudo systemctl start nginx
-fi
-
+sudo sed -i "s/8080/80/" /etc/nginx/sites-enabled/default
+sudo service nginx restart
+echo "" | sudo dd status=none of=/run/nginx.pid
