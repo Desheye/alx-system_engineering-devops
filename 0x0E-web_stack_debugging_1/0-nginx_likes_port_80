@@ -3,5 +3,6 @@
 # Symbolically links the default Nginx configuration file to enable it
 sudo ln -sf /etc/nginx/sites-available/default \
   /etc/nginx/sites-enabled/default
+
 # Restarts the Nginx service to apply the changes
 sudo service nginx restart
