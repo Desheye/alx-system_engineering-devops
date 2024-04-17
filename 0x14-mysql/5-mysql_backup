@@ -2,20 +2,17 @@
 # backup_mysql.sh
 
 # Read MySQL root password from file
-mysql_password=$(<"$1")
-
-# Set the directory where the backup file will be stored
-backup_dir="/home/ubuntu"
+mysql_password=$(<keyGlock)
 
 # variables for backup file
 day=$(date +"%d")
 month=$(date +"%m")
 year=$(date +"%Y")
-file_name="$backup_dir/$day-$month-$year.tar.gz"
+file_name="$day-$month-$year.tar.gz"
 
-# Backup all databases and compress
-mysqldump --all-databases -u root --password="$mysql_password" > "$backup_dir/backup.sql"
-tar -czvf "$file_name" "$backup_dir/backup.sql"
+# Backup specific database and compress
+mysqldump -u root --password="$mysql_password" tyrell_corp nexus6 > /home/ubuntu/backup.sql
+tar -czvf "/home/ubuntu/$file_name" /home/ubuntu/backup.sql
 
 # Securely clear the MySQL password variable
 unset mysql_password
