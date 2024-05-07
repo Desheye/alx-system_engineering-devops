@@ -2,12 +2,20 @@
 import requests
 
 """
-Write a function that queries the Reddit API and prints
-the titles of the first 10 hot posts listed for a given subreddit.
+Function to print the titles of the first 10 hot posts listed for a given subreddit via the Reddit API.
+If the subreddit is invalid, return None.
 """
 
-
 def top_ten(subreddit):
+    """
+    Print the titles of the first 10 hot posts listed for a given subreddit.
+    
+    Args:
+        subreddit (str): The name of the subreddit.
+        
+    Returns:
+        None if the subreddit is invalid.
+    """
     url = f"https://www.reddit.com/r/{subreddit}/hot.json?limit=10"
     headers = {'User-Agent': 'MyBot/0.0.1'}
 
@@ -19,10 +27,14 @@ def top_ten(subreddit):
             for post in posts:
                 print(post['data']['title'])
         else:
-            print("None")
+            return None
     except requests.RequestException:
-        print("None")
-
+        return None
 
 # Example usage:
-top_ten("python")
+if __name__ == '__main__':
+    import sys
+    if len(sys.argv) < 2:
+        print("Please pass an argument for the subreddit to search.")
+    else:
+        top_ten(sys.argv[1])
