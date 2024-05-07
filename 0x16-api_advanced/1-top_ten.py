@@ -2,14 +2,15 @@
 import requests
 
 """
-Write a function that queries the Reddit API and prints 
+Write a function that queries the Reddit API and prints
 the titles of the first 10 hot posts listed for a given subreddit.
 """
+
 
 def top_ten(subreddit):
     url = f"https://www.reddit.com/r/{subreddit}/hot.json?limit=10"
     headers = {'User-Agent': 'MyBot/0.0.1'}
-    
+
     try:
         response = requests.get(url, headers=headers, allow_redirects=False)
         if response.status_code == 200:
@@ -22,6 +23,6 @@ def top_ten(subreddit):
     except requests.RequestException:
         print("None")
 
+
 # Example usage:
 top_ten("python")
-
