@@ -18,7 +18,7 @@ def number_of_subscribers(subreddit):
     """
     try:
         headers = {'User-Agent': 'My User Agent 1.0'}
-        url = f'https://www.reddit.com/r/{subreddit}/about.json'
+        url = 'https://www.reddit.com/r/{}/about.json'.format(subreddit)
         response = requests.get(url, headers=headers, allow_redirects=False)
         
         if response.status_code == 200:
@@ -26,5 +26,5 @@ def number_of_subscribers(subreddit):
         else:
             return 0
     except Exception as e:
-        print(f"An error occurred: {e}")
+        print("An error occurred:", e)
         return 0
