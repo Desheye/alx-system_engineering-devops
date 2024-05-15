@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Server details
+SERVER_IP="52.91.149.144"
+USERNAME="ubuntu"
+
+# Log in to the server
+ssh $USERNAME@$SERVER_IP
